@@ -40,7 +40,8 @@ class Window(Frame):
         self.outputbox.set_html(html)
 
     def openfile(self):
-        openfilename = filedialog.askopenfilename(filetypes=(("Markdown File", "*.md , *.mdown , *.markdown"),
+        openfilename = filedialog.askopenfilename(filetypes=(("Markdown File", "*.md , *.mdown , \
+                                                              *.markdown"),
                                                             ("Text File", "*.txt"),
                                                             ("All Files", "*.*")))
         if openfilename:
@@ -49,20 +50,26 @@ class Window(Frame):
                 self.inputeditor.insert(END, open(openfilename).read())
             except:
                 # print("Cannot Open File!")
-                mbox.showerror("Error Opening Selected File" , "Oops!, The file you selected : {} can not be opened!".format(openfilename))
+                mbox.showerror("Error Opening Selected File" ,
+                               "Oops!, The file you selected : {} can not be opened!"
+                               .format(openfilename))
 
     def savefile(self):
         filedata = self.inputeditor.get("1.0" , END)
         savefilename = filedialog.asksaveasfilename(filetypes = (("Markdown File", "*.md"),
-                                                                  ("Text File", "*.txt")) , title="Save Markdown File")
+                                                                  ("Text File", "*.txt")) ,
+                                                    title="Save Markdown File")
         if savefilename:
             try:
                 f = open(savefilename , "w")
                 f.write(filedata)
             except:
-                mbox.showerror("Error Saving File" , "Oops!, The File : {} can not be saved!".format(savefilename))
+                mbox.showerror("Error Saving File" , "Oops!, The File : {} can not be saved!"
+                               .format(savefilename))
 
-root = Tk()
-root.geometry("700x600")
-app = Window(root)
-app.mainloop()
+
+if __name__ == "__main__":
+    root = Tk()
+    root.geometry("700x600")
+    app = Window(root)
+    app.mainloop()
