@@ -42,29 +42,30 @@ class Window(Frame):
     def openfile(self):
         openfilename = filedialog.askopenfilename(filetypes=(("Markdown File", "*.md , *.mdown , \
                                                               *.markdown"),
-                                                            ("Text File", "*.txt"),
-                                                            ("All Files", "*.*")))
+                                                             ("Text File",
+                                                              "*.txt"),
+                                                             ("All Files", "*.*")))
         if openfilename:
             try:
                 self.inputeditor.delete(1.0, END)
                 self.inputeditor.insert(END, open(openfilename).read())
             except:
                 # print("Cannot Open File!")
-                mbox.showerror("Error Opening Selected File" ,
+                mbox.showerror("Error Opening Selected File",
                                "Oops!, The file you selected : {} can not be opened!"
                                .format(openfilename))
 
     def savefile(self):
-        filedata = self.inputeditor.get("1.0" , END)
-        savefilename = filedialog.asksaveasfilename(filetypes = (("Markdown File", "*.md"),
-                                                                  ("Text File", "*.txt")) ,
+        filedata = self.inputeditor.get("1.0", END)
+        savefilename = filedialog.asksaveasfilename(filetypes=(("Markdown File", "*.md"),
+                                                               ("Text File", "*.txt")),
                                                     title="Save Markdown File")
         if savefilename:
             try:
-                f = open(savefilename , "w")
+                f = open(savefilename, "w")
                 f.write(filedata)
             except:
-                mbox.showerror("Error Saving File" , "Oops!, The File : {} can not be saved!"
+                mbox.showerror("Error Saving File", "Oops!, The File : {} can not be saved!"
                                .format(savefilename))
 
 
